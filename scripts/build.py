@@ -14,6 +14,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+# GitHub Actions Windows runner 默认终端编码可能不是 UTF-8，
+# 强制标准输出使用 UTF-8 避免中文打印报错。
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = ROOT / "dist"
 BUILD_DIR = ROOT / "build"
